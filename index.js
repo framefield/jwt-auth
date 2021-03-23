@@ -23,7 +23,8 @@ async function authorize(options) {
     privateKey,
     passphrase = '',
     metaScopes,
-    ims = 'https://ims-na1.adobelogin.com'
+    ims = 'https://ims-na1.adobelogin.com',
+    agent
   } = options;
 
   const errors = [];
@@ -77,7 +78,8 @@ async function authorize(options) {
   const postOptions = {
     method: 'POST',
     body: form,
-    headers: form.getHeaders()
+    headers: form.getHeaders(),
+    agent
   };
 
   return fetch(`${ims}/ims/exchange/jwt/`, postOptions)
