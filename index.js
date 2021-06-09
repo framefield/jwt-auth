@@ -83,7 +83,14 @@ async function authorize(options) {
   };
 
   return fetch(`${ims}/ims/exchange/jwt/`, postOptions)
-    .then(res => res.json())
+    .then(res => {
+      console.log(res.statusText, res.status)
+      return res.text()
+    })
+    .then(text => {
+      console.log(text)
+      return JSON.parse(text);
+    })
     .then(json => {
       const { access_token, error, error_description } = json;
       if (!access_token) {
